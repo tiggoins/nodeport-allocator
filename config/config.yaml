@@ -1,0 +1,37 @@
+# NodePort 分配器配置
+defaultRange: "default"
+allowOutsideRangePorts: false
+storage:
+  configMapName: "nodeport-allocator-state"
+  configMapNamespace: "kube-system"
+  retryAttempts: 3
+  retryDelay: "1s"
+logLevel: "info"
+portRanges:
+  production:
+    start: 30000
+    end: 30999
+    namespaces: ["prod", "production"]
+    labels:
+      kubernetes.io/part-of: "shengchanyu"
+    description: "生产环境端口范围"
+  staging:
+    start: 31000
+    end: 31499
+    namespaces: ["stage", "staging"]
+    labels:
+      kubernetes.io/part-of: "ceshi"
+    description: "预发布环境端口范围"
+  development:
+    start: 31500
+    end: 31999
+    namespaces: ["dev", "development"]
+    labels:
+      kubernetes.io/part-of: "kaifa"
+    description: "开发环境端口范围"
+  default:
+    start: 32000
+    end: 32767
+    namespaces: ["*"]
+    description: "默认端口范围"
+
